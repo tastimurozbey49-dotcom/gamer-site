@@ -65,3 +65,92 @@ function showPage(sayfa) {
         `;
     }
 }
+<div>
+  <h3>Minecraft</h3>
+  <p>En popüler sandbox oyunu</p>
+</div>
+<img src="https://via.placeholder.com/150">
+button:hover {
+    background: red;
+}
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+
+<script>
+<h2>Kayıt / Giriş</h2>
+
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Şifre"><br><br>
+
+<button onclick="register()">Kayıt Ol</button>
+<button onclick="login()">Giriş Yap</button>
+
+<script>
+function register() {
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("password").value;
+
+  auth.createUserWithEmailAndPassword(email, pass)
+    .then(() => alert("Kayıt başarılı"))
+    .catch(err => alert(err.message));
+}
+
+function login() {
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("password").value;
+
+  auth.signInWithEmailAndPassword(email, pass)
+    .then(() => alert("Giriş başarılı"))
+    .catch(err => alert(err.message));
+}
+</script>
+let puan = 0;
+
+function puanEkle() {
+  puan += 10;
+  document.getElementById("puan").innerText = puan;
+}
+<h3>Puan: <span id="puan">0</span></h3>
+<button onclick="puanEkle()">Puan kazan</button>
+<input id="mesaj" placeholder="Mesaj yaz">
+<button onclick="gonder()">Gönder</button>
+
+<div id="chat"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
+<script>
+const db = firebase.database();
+
+function gonder() {
+  let mesaj = document.getElementById("mesaj").value;
+  db.ref("chat").push(mesaj);
+}
+
+db.ref("chat").on("value", (snapshot) => {
+  let data = snapshot.val();
+  let html = "";
+
+  for (let id in data) {
+    html += "<p>" + data[id] + "</p>";
+  }
+
+  document.getElementById("chat").innerHTML = html;
+});
+</script>
+body {
+    background: black;
+    color: #0ff;
+    font-family: Arial;
+}
+
+h1 {
+    text-shadow: 0 0 10px #0ff;
+}
+
+button {
+    background: #0ff;
+    color: black;
+    border: none;
+    padding: 10px;
+}
