@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamer Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🎮 Gamer Hub</h1>
+        <p>Oyuncuların buluşma noktası</p>
+    </header>
+
+    <nav>
+        <button onclick="showPage('anasayfa')">Ana Sayfa</button>
+        <button onclick="showPage('oyunlar')">Oyunlar</button>
+        <button onclick="showPage('hesap')">Hesap</button>
+    </nav>
+
+    <main id="icerik">
+        <h2>Hoş geldin!</h2>
+        <p>Bu site gamerlar için yapıldı 😎</p>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    background-color: #0f172a;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+}
+
+header {
+    background: #1e293b;
+    padding: 20px;
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+    background: #22c55e;
+    border: none;
+    cursor: pointer;
+}
+function showPage(sayfa) {
+    let icerik = document.getElementById("icerik");
+
+    if (sayfa === "anasayfa") {
+        icerik.innerHTML = "<h2>Ana Sayfa</h2><p>Hoş geldin gamer 😎</p>";
+    }
+
+    if (sayfa === "oyunlar") {
+        icerik.innerHTML = "<h2>Oyunlar</h2><p>Minecraft, CS2, GTA V</p>";
+    }
+
+    if (sayfa === "hesap") {
+        icerik.innerHTML = `
+            <h2>Giriş</h2>
+            <input placeholder="Kullanıcı"><br><br>
+            <input type="password" placeholder="Şifre"><br><br>
+            <button onclick="alert('Giriş sistemi yakında 😎')">Giriş Yap</button>
+        `;
+    }
+}
