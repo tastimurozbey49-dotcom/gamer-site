@@ -154,3 +154,172 @@ button {
     border: none;
     padding: 10px;
 }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Gamer Hub PRO</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: black;
+    color: #0ff;
+    text-align: center;
+}
+
+header {
+    padding: 20px;
+    font-size: 30px;
+    text-shadow: 0 0 20px #0ff;
+}
+
+nav button {
+    margin: 5px;
+    padding: 10px;
+    background: #0ff;
+    border: none;
+    cursor: pointer;
+}
+
+.card {
+    background: #111;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #0ff;
+}
+
+input {
+    padding: 10px;
+    margin: 5px;
+}
+
+#chat {
+    height: 150px;
+    overflow-y: auto;
+    border: 1px solid #0ff;
+    margin: 10px;
+    padding: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>🎮 GAMER HUB PRO</header>
+
+<nav>
+<button onclick="show('home')">Ana Sayfa</button>
+<button onclick="show('login')">Giriş</button>
+<button onclick="show('game')">Oyun</button>
+<button onclick="show('chatPage')">Chat</button>
+<button onclick="show('profile')">Profil</button>
+</nav>
+
+<div id="content"></div>
+
+<script>
+// SAYFA GEÇİŞ
+function show(page) {
+    let c = document.getElementById("content");
+
+    if (page === "home") {
+        c.innerHTML = `
+        <div class="card">
+        <h2>Hoşgeldin Gamer 😎</h2>
+        <p>Bu site oyuncular için yapıldı!</p>
+        </div>`;
+    }
+
+    if (page === "login") {
+        c.innerHTML = `
+        <div class="card">
+        <h2>Giriş</h2>
+        <input id="user" placeholder="Kullanıcı"><br>
+        <input id="pass" type="password" placeholder="Şifre"><br>
+        <button onclick="login()">Giriş Yap</button>
+        </div>`;
+    }
+
+    if (page === "game") {
+        c.innerHTML = `
+        <div class="card">
+        <h2>Tahmin Oyunu</h2>
+        <p>1-5 arası tahmin et</p>
+        <input id="tahmin"><br>
+        <button onclick="oyna()">Oyna</button>
+        <h3>Puan: <span id="puan">0</span></h3>
+        </div>`;
+    }
+
+    if (page === "chatPage") {
+        c.innerHTML = `
+        <div class="card">
+        <h2>Chat</h2>
+        <div id="chat"></div>
+        <input id="mesaj"><button onclick="gonder()">Gönder</button>
+        </div>`;
+    }
+
+    if (page === "profile") {
+        c.innerHTML = `
+        <div class="card">
+        <h2>Profil</h2>
+        <p>Kullanıcı: <span id="kullaniciYaz"></span></p>
+        </div>`;
+        document.getElementById("kullaniciYaz").innerText = currentUser || "Giriş yap";
+    }
+}
+
+// LOGIN (fake basit)
+let currentUser = null;
+
+function login() {
+    let u = document.getElementById("user").value;
+    let p = document.getElementById("pass").value;
+
+    if (u && p) {
+        currentUser = u;
+        alert("Giriş başarılı!");
+    } else {
+        alert("Boş bırakma!");
+    }
+}
+
+// OYUN + PUAN
+let puan = 0;
+
+function oyna() {
+    let sayi = Math.floor(Math.random()*5)+1;
+    let t = document.getElementById("tahmin").value;
+
+    if (t == sayi) {
+        puan += 10;
+        alert("Bildin!");
+    } else {
+        alert("Yanlış! sayı: " + sayi);
+    }
+
+    document.getElementById("puan").innerText = puan;
+}
+
+// CHAT (local)
+let mesajlar = [];
+
+function gonder() {
+    let m = document.getElementById("mesaj").value;
+    mesajlar.push(m);
+    let html = "";
+
+    mesajlar.forEach(x => {
+        html += "<p>" + x + "</p>";
+    });
+
+    document.getElementById("chat").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
